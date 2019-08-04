@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Redirect, Switch } from "react-router-dom";
+
+import { ToastContainer } from "react-toastify";
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+import Details from './components/details';
+import NotFound from './components/notFound';
+import List from './components/List';
+import "react-toastify/dist/ReactToastify.css";
+import './App.scss';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  	<React.Fragment>
+  	<ToastContainer />
+	    <Header />
+  		<main className="container">
+  			<Switch>
+		    	<Route path="/product/:id" component={Details} />
+          <Route path="/dashboard" component={List} />
+		    	<Route path="/not-found" component={NotFound} />
+		    	<Redirect from="/" exact to="/dashboard" />
+		    	<Redirect to="/not-found" />
+  			</Switch>
+  		</main>
+	    <Footer />
+    </React.Fragment>
   );
 }
 
